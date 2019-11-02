@@ -16,6 +16,7 @@ pipeline {
           """
         }
       }
+    }
 
       stage('Create blue deployment') {
         steps {
@@ -23,5 +24,4 @@ pipeline {
         }
       }
     }
-  }
 }
