@@ -1,0 +1,84 @@
+- name: Deploy
+  hosts: [localhost]
+  gather_facts: false
+  vars:
+    application: djangoblue
+    region: us-west-2
+  
+  tasks:
+    - name: Create a security group
+      ec2_group:
+        description: Security Group for djangoblue
+        region: "{{ region }}"
+        rules:
+          - proto: tcp
+            ports:
+              - 22
+              - 80
+              - 8000-8080
+            cidr_ip: 0.0.0.0/0
+        register: security_group
+
+    - name: Create ELB
+      ec2_elb_lb:
+        name: ELB_for_Djangoblue
+        state: present
+        region: "{{ region }}"
+        listeners:
+          - protocol: http
+          load_balancer_port: 80
+          instance_port: 8000
+      register: elb 
+
+    - name: Create EC2 instance 
+      ec2:
+        instance_type: t2.micro
+        image: ami-02cbed67225579b2c
+        region: "{{ region }}"
+        group_id: security_group.group_id
+        wait: yes
+        instance_tags:
+          Name: server
+          application: "{{ application }}"
+        exact_count: 1
+      register: ec2_instance
+
+    - name: Wait for EC2 online
+      wait_for:
+        host: "{{ item.public_ip }}"
+        port: 80
+        timeout: 180
+      with_items: "{{ ec2_instance.tagged_instances }}"
+      ignore_errors: True
+
+    - name: Pull & Run Docker
+      docker_container:
+        name: django_container
+        image: zhan430/traveblog:lastest
+        pull: yes
+        state: started
+
+    - name: Add EC2 instance to ELB
+      ec2_elb:
+        state: present
+        ec2_elbs: elb.name
+        region: "{{ region }}"
+        instance_id: "{{ item.id }}"
+      with_items: "{{ ec2_instance.tagged_instances }}"
+
+    - name: change route53
+      route53:
+        state: present
+        zone: lazxy.com
+        record: www.lazxy.com
+        failover: PRIMARY
+        type: CNAME
+        ttl: 30
+        identifier: blue
+        private_zone: yes
+        overwrite: yes
+        value: "{{ application }}-load-balancer"
+        wait: yes
+        health_check: "f727fa34-2bbd-4288-b59f-7ca9f74c5f34"
+
+
