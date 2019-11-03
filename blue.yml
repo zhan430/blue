@@ -17,7 +17,7 @@
               - 80
               - 8000-8080
             cidr_ip: 0.0.0.0/0
-        register: security_group
+      register: security_group
 
     - name: Create ELB
       ec2_elb_lb:
