@@ -43,7 +43,6 @@
         wait: yes
         instance_tags:
           application: "{{ application }}"
-        assign_public_ip: yes
       register: ec2_instance
 
     - name: Wait for EC2 online
