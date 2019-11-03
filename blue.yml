@@ -39,11 +39,11 @@
         instance_type: t2.micro
         image: ami-02cbed67225579b2c
         region: "{{ region }}"
-        group_id: "{{ security_group.group_id }}"
+        group: "{{ security_group }}"
         wait: yes
         instance_tags:
-          Name: server
           application: "{{ application }}"
+        assign_public_ip: yes
       register: ec2_instance
 
     - name: Wait for EC2 online
