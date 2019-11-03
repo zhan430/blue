@@ -37,7 +37,7 @@
     - name: Create EC2 instance 
       ec2:
         instance_type: t2.micro
-        image: ami-02cbed67225579b2c
+        image: ami-06d51e91cea0dac8d
         region: "{{ region }}"
         group_id: "{{ security_group.group_id }}"
         wait: yes
