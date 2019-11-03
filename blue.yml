@@ -11,7 +11,7 @@
       ec2_instance_info:
         instance_ids:
           - i-0979a2b756551685c
-      with_register: ec2_instance
+      register: ec2_instance
       
     - name: Add EC2 instance to host
       add_host:
