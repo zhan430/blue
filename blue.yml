@@ -13,7 +13,7 @@
         region: "{{ region }}"
         instance_ids: 
           - i-0c2a60beb918e140a
-        register: ec2_instance
+       register: ec2_instance
     
     - name: Add EC2 instance to host
       add_host:
