@@ -41,8 +41,9 @@
 - name: Setup Route53
   hosts: [localhost]
   gather_facts: false
-  application: djangoblue
-  region: us-west-2
+  vars:
+    application: djangoblue
+    region: us-west-2
   
   tasks:
     - name: Add EC2 instance to ELB
