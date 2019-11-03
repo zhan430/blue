@@ -9,6 +9,7 @@
   tasks:
     - name: Collect EC2 info
       ec2_instance_facts:
+        region: "{{ region }}"
         instance_ids:
           - i-0979a2b756551685c
       register: ec2_instance
