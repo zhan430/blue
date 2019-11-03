@@ -23,7 +23,7 @@
 
     - name: Create ELB
       ec2_elb_lb:
-        name: "{{ application }}"-load-balancer
+        name: "{{ application }}-load-balancer"
         state: present
         region: "{{ region }}"
         zones:
