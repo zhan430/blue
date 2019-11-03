@@ -39,7 +39,7 @@
         instance_type: t2.micro
         image: ami-02cbed67225579b2c
         region: "{{ region }}"
-        group: "{{ security_group.group }}"
+        group_id: "{{ security_group.group_id }}"
         wait: yes
         instance_tags:
           application: "{{ application }}"
