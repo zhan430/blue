@@ -55,8 +55,9 @@
     
     - name: Add EC2 instance to host
       add_host:
-        name: "{{ ec2_instance.public_ip }}"
+        name: "{{ item.public_ip }}"
         groups: server
+      with_instance: "{{ ec2.instances }}"
 
 - name: Create EC2
   hosts: server
