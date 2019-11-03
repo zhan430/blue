@@ -11,7 +11,7 @@
     - name: Collect EC2 info
       ec2_instance_facts:
         region: "{{ region }}"
-        instance_id: 
+        instance_ids: 
           - i-0c2a60beb918e140a
         register: ec2_instance
     
