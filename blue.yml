@@ -26,8 +26,8 @@
         region: "{{ region }}"
         listeners:
           - protocol: http
-          load_balancer_port: 80
-          instance_port: 8000
+            load_balancer_port: 80
+            instance_port: 8000
       register: elb 
 
     - name: Create EC2 instance 
