@@ -1,5 +1,6 @@
 - name: Create EC2
   hosts: [localhost]
+  connection: local
   gather_facts: false
   vars:
     ansible_python_interpreter: /usr/bin/python3
