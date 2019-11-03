@@ -44,7 +44,6 @@
         instance_tags:
           Name: server
           application: "{{ application }}"
-        exact_count: 1
       register: ec2_instance
 
     - name: Wait for EC2 online
