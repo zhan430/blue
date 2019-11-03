@@ -11,13 +11,13 @@
       ec2_instance_info:
         instance_ids:
           - i-0979a2b756551685c
-      with_register: ec2
+      with_register: ec2_instance
       
     - name: Add EC2 instance to host
       add_host:
         name: "{{ item.public_ip }}"
         groups: server
-      with_items: "{{ ec2.instances }}"
+      with_items: "{{ ec2_instance.tagged_instances }}"
 
 - name: Deploy EC2
   hosts: server
