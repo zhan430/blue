@@ -26,6 +26,8 @@
         name: ELB_for_Djangoblue
         state: present
         region: "{{ region }}"
+        zones:
+          - us-west-2a
         listeners:
           - protocol: http
             load_balancer_port: 80
