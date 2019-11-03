@@ -26,6 +26,8 @@
   remote_user: ubuntu
   become: yes 
   gather_facts: false
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
 
   tasks:
     - name: Install Docker
