@@ -20,7 +20,7 @@ pipeline {
 
       stage('Create blue deployment') {
         steps {
-          ansiblePlaybook playbook: 'blue.yml', inventory: 'inventory'
+          ansiblePlaybook playbook: 'blue.yml'
         }
       }
     }
