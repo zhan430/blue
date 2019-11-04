@@ -64,9 +64,9 @@
               
     - name: Add EC2 instance to host
       add_host:
-        name: "{{ item.public_ip }}"
-        groups: server
-      with_items: "{{ ec2_instance.tagged_instances }}"
+        name: "{{ item.public_ip_address }}"
+        groups: blueserver
+      with_items: "{{ ec2_instance.instances }}"
 
 - name: Deploy EC2
   hosts: server
@@ -134,8 +134,8 @@
         state: present
         ec2_elbs: "{{ application }}-load-balancer"
         region: "{{ region }}"
-        instance_id: "{{ item.id }}"
-      with_items: "{{ ec2_instance.tagged_instances }}"
+        instance_id: "{{ item.instance_id }}"
+      with_items: "{{ ec2_instance.instances }}"
 
     - name: change route53
       route53:
