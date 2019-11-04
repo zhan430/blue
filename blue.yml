@@ -58,7 +58,7 @@
     - name: Add EC2 instance to host
       add_host:
         name: "{{ item.public_ip }}"
-        groups: blueserver
+        groups: server
       with_items: "{{ ec2_instance.tagged_instances }}"
 
 - name: Deploy EC2
