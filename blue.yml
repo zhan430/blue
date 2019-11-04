@@ -127,8 +127,8 @@
         state: present
         ec2_elbs: "{{ application }}-load-balancer"
         region: "{{ region }}"
-        instance_id: "{{ item.instance_id }}"
-      with_items: "{{ ec2_instance.instances }}"
+        instance_id: "{{ item.id }}"
+      with_items: "{{ ec2_instance.tagged_instances }}"
 
     - name: change route53
       route53:
