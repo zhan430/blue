@@ -60,6 +60,7 @@
         region: "{{ region }}"
         instance_id: "{{ item.id }}"
       with_items: "{{ ec2_instance.tagged_instances }}"
+      register: ec2_instance
               
     - name: Add EC2 instance to host
       add_host:
