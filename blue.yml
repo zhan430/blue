@@ -55,18 +55,11 @@
       with_items: "{{ ec2_instance.tagged_instances }}"
       ignore_errors: True
       
-    - name: Collect EC2 info
-      ec2_instance_facts:
-        region: "{{ region }}"
-        instance_ids: 
-          - i-0c2a60beb918e140a
-      register: ec2_instance
-    
     - name: Add EC2 instance to host
       add_host:
-        name: "{{ item.public_ip_address }}"
+        name: "{{ item.public_ip }}"
         groups: server
-      with_items: "{{ ec2_instance.instances }}"
+      with_items: "{{ ec2_instance.tagged_instances }}"
 
 - name: Deploy EC2
   hosts: server
