@@ -32,7 +32,9 @@
   tasks:
     - name: Install Docker
       apt:
-        name: docker
+        pkg: 
+          - docker.io
+          - python3-pip
 
     - name: Pull & Run Docker
       docker_container:
