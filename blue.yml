@@ -30,6 +30,7 @@
   vars:
     application: djangoblue
     region: us-west-2
+    ansible_python_interpreter: /usr/bin/python3
   
   tasks:
     - name: Add EC2 instance to ELB
