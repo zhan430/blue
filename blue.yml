@@ -21,24 +21,11 @@
         groups: server
       with_items: "{{ ec2_instance.instances }}"
 
-- name: Deploy EC2
-  hosts: server
-  remote_user: ubuntu
-  become: yes 
-  gather_facts: false
-  vars:
-    ansible_python_interpreter: /usr/bin/python3
 
-  tasks:
-    - name: Pull & Run Docker
-      docker_container:
-        name: django_container
-        image: zhan430/traveblog:62
-        pull: yes
-        state: started
 
 - name: Setup Route53
   hosts: [localhost]
+  connection: local
   gather_facts: false
   vars:
     application: djangoblue
