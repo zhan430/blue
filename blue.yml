@@ -7,45 +7,7 @@
     application: djangoblue
     region: us-west-2
   
-  tasks:
-    - name: Create a security group
-      ec2_group:
-        name: Blue Security Group
-        description: Security Group for djangoblue
-        region: "{{ region }}"
-        rules:
-          - proto: tcp
-            ports:
-              - 22
-              - 80
-              - 8000-8080
-            cidr_ip: 0.0.0.0/0
-      register: security_group
-
-    - name: Create ELB
-      ec2_elb_lb:
-        name: "{{ application }}-load-balancer"
-        state: present
-        region: "{{ region }}"
-        zones:
-          - us-west-2a
-        listeners:
-          - protocol: http
-            load_balancer_port: 80
-            instance_port: 8000
-      register: elb 
-
-    - name: Create EC2 instance 
-      ec2:
-        instance_type: t2.micro
-        image: ami-06d51e91cea0dac8d
-        region: "{{ region }}"
-        group_id: "{{ security_group.group_id }}"
-        wait: yes
-        keypair: jenkins
-        instance_tags:
-          application: "{{ application }}"
-    
+  tasks:    
     - name: Collect EC2 info
       ec2_instance_facts:
         region: "{{ region }}"
