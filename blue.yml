@@ -51,6 +51,7 @@
         region: "{{ region }}"
         filters:
           instance-type: t2.micro
+          instance-state-name: [ "pending", "running" ]
       register: ec2_instance
     
     - debug:
