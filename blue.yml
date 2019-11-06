@@ -53,6 +53,9 @@
           instance-type: t2.micro
       register: ec2_instance
     
+    - debug:
+        var: ec2_instance
+    
     - name: Add EC2 instance to host
       add_host:
         name: "{{ item.public_ip_address }}"
