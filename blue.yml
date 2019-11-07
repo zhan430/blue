@@ -77,6 +77,11 @@
     ansible_python_interpreter: /usr/bin/python3
 
   tasks:
+    - name: Update and upgrade apt packages
+      apt:
+        upgrade: yes
+        update_cache: yes
+    
     - name: Install aptitude using apt
       apt:
         name: aptitude
